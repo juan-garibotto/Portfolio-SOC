@@ -39,10 +39,7 @@ Cinco cadenas de técnicas ejecutadas con Atomic Red Team sobre la máquina Wind
 | 4 | [Initial Access / Persistence](atomic-red-team/cadena-4-initial-access-persistence/writeup.md) | 27/10 | T1053.005, T1027, T1112, T1547.001 | 1 |
 | 5 | [Collection / Exfiltration](atomic-red-team/cadena-5-collection-exfiltration/writeup.md) | 27/10 | T1005, T1041 | 1 (+ gap de visibilidad de red documentado) |
 
-## Cobertura MITRE ATT&CK
-
-Ver [`cobertura-mitre-attack.csv`](cobertura-mitre-attack.csv) para el tracker completo de técnicas planificadas/ejecutadas/detectadas.
 
 ## Notas de metodología
 
-Cada writeup documenta no solo lo que funcionó, sino los errores de configuración cometidos en el camino (por ejemplo, confundir DACL con SACL al auditar DCSync) y los falsos positivos identificados — incluyendo un caso donde el mismo Rule ID (92154) significa cosas completamente distintas según el contexto (Cadena 1 vs Cadena 3 de Atomic Red Team), y un caso donde la ausencia de una alerta es en sí misma el hallazgo más importante (Cadena 5 — gap de visibilidad de red). Esa distinción entre señal, ruido, y ausencia de señal es, en mi opinión, lo que más vale mostrar en un portfolio de nivel junior.
+Cada writeup documenta no solo lo que funcionó, sino los errores de configuración cometidos en el camino (por ejemplo, confundir DACL con SACL al auditar DCSync) y los falsos positivos identificados — incluyendo un caso donde el mismo Rule ID (92154) significa cosas completamente distintas según el contexto (Cadena 1 vs Cadena 3 de Atomic Red Team), y un caso donde la ausencia de una alerta es en sí misma el hallazgo más importante (Cadena 5 — gap de visibilidad de red). 
