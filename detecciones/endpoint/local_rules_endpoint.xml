@@ -1,4 +1,4 @@
-<!-- Endpoint (Sysmon) - rango 100500+. Pegar en local_rules.xml -->
+<!-- Endpoint (Sysmon) - rango 100500+.-->
 
 <!-- T1548.002 - UAC Bypass. Encadena sobre la 92306 (built-in) que ya dispara
      sobre el registry hijack; esta sube severidad y agrega el mapeo MITRE. -->
@@ -14,8 +14,7 @@
 </group>
 
 <!-- T1003.001 - LSASS dump por linea de comando. Cubre procdump (-ma lsass),
-     comsvcs MiniDump y rdrleakdiag. Deteccion fragil por diseno: la robusta
-     es Sysmon Event 10 (ProcessAccess) una vez tuneada la config. -->
+     comsvcs MiniDump y rdrleakdiag. -->
 <group name="windows,sysmon,credential_access,">
   <rule id="100510" level="12">
     <if_group>sysmon_event1</if_group>
