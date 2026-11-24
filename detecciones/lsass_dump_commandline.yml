@@ -1,0 +1,28 @@
+title: LSASS Memory Dump via Known Tools (Command-Line Fallback)
+id: f4e8d1c7-3b25-49a0-ae6f-8c2d7b1e5a90
+status: experimental
+description: Command-line detection of LSASS memory dumping (procdump, comsvcs MiniDump, rdrleakdiag) as a fallback while Sysmon ProcessAccess (EventID 10) coverage is tuned; the robust detection is Event 10 on TargetImage lsass.exe
+references:
+    - https://attack.mitre.org/techniques/T1003/001/
+logsource:
+    product: windows
+    category: process_creation
+detection:
+    selection_procdump:
+        CommandLine|contains|all:
+            - 'lsass'
+            - '-ma'
+    selection_comsvcs:
+        CommandLine|contains|all:
+            - 'comsvcs.dll'
+            - 'MiniDump'
+    selection_rdrleakdiag:
+        CommandLine|contains:
+            - 'rdrleakdiag'
+    condition: 1 of selection_*
+falsepositives:
+    - Legitimate Microsoft diagnostics (infrequent)
+level: high
+tags:
+    - attack.credential_access
+    - attack.t1003.001

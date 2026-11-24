@@ -1,0 +1,22 @@
+title: Possible UAC Bypass - ms-settings/mscfile DelegateExecute Registry Hijack
+id: 7d3f1a92-4c0e-4b6a-9f21-2a8c5e1b7d04
+status: experimental
+description: Detects creation or modification of the shell\open\command keys under ms-settings or mscfile in HKCU, abused by auto-elevated Windows binaries (fodhelper.exe, computerdefaults.exe) to elevate to high integrity without a UAC prompt
+references:
+    - https://attack.mitre.org/techniques/T1548/002/
+logsource:
+    product: windows
+    category: registry_set
+detection:
+    selection:
+        TargetObject|contains:
+            - '\ms-settings\shell\open\command'
+            - '\mscfile\shell\open\command'
+    condition: selection
+falsepositives:
+    - Legitimate file association changes (very rare on these paths)
+level: high
+tags:
+    - attack.privilege_escalation
+    - attack.defense_evasion
+    - attack.t1548.002

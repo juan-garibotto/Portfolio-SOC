@@ -1,0 +1,43 @@
+<!-- Endpoint (Sysmon) - rango 100500+. Pegar en local_rules.xml -->
+
+<!-- T1548.002 - UAC Bypass. Encadena sobre la 92306 (built-in) que ya dispara
+     sobre el registry hijack; esta sube severidad y agrega el mapeo MITRE. -->
+<group name="windows,sysmon,uac_bypass,">
+  <rule id="100500" level="12">
+    <if_sid>92306</if_sid>
+    <description>Possible UAC bypass via auto-elevated process - ms-settings/mscfile DelegateExecute hijack by $(win.eventdata.image)</description>
+    <mitre>
+      <id>T1548.002</id>
+    </mitre>
+    <group>uac_bypass,attack,</group>
+  </rule>
+</group>
+
+<!-- T1003.001 - LSASS dump por linea de comando. Cubre procdump (-ma lsass),
+     comsvcs MiniDump y rdrleakdiag. Deteccion fragil por diseno: la robusta
+     es Sysmon Event 10 (ProcessAccess) una vez tuneada la config. -->
+<group name="windows,sysmon,credential_access,">
+  <rule id="100510" level="12">
+    <if_group>sysmon_event1</if_group>
+    <field name="win.eventdata.commandLine" type="pcre2">(?i)(lsass.{0,30}-ma|-ma.{0,30}lsass|comsvcs\.dll.{0,30}minidump|rdrleakdiag)</field>
+    <description>Possible LSASS memory dump via command line: $(win.eventdata.commandLine)</description>
+    <mitre>
+      <id>T1003.001</id>
+    </mitre>
+    <group>credential_access,lsass_dump,attack,</group>
+  </rule>
+</group>
+
+<!-- T1552.001 - Busqueda de credenciales en archivos. Aporta especificidad
+     sobre la 92027 generica de ejecucion de PowerShell. -->
+<group name="windows,sysmon,credential_access,">
+  <rule id="100520" level="10">
+    <if_group>sysmon_event1</if_group>
+    <field name="win.eventdata.commandLine" type="pcre2">(?i)(findstr\s.*\bpass|select-string.*password)</field>
+    <description>Possible credential search in files (findstr/Select-String password): $(win.eventdata.commandLine)</description>
+    <mitre>
+      <id>T1552.001</id>
+    </mitre>
+    <group>credential_access,creds_in_files,attack,</group>
+  </rule>
+</group>
