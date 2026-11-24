@@ -19,7 +19,7 @@ El lab tiene dos componentes independientes, unidos por un mismo backend de tele
 Este portfolio muestra dos habilidades complementarias de un analista:
 
 ### 1. [`detecciones/`](detecciones/) — Detection Engineering
-Una cadena de ataque encadenada y realista contra el Domain Controller (Discovery → Kerberoasting → AS-REP Roasting → DCSync). Acá el ruleset default de Wazuh **no cubría** las técnicas, así que cada writeup incluye la regla custom escrita desde cero (Wazuh + Sigma), verificada funcionando contra el ataque real. Un writeup por fase dentro de la carpeta.
+Una cadena de ataque encadenada y realista contra el Domain Controller (Discovery → Kerberoasting → AS-REP Roasting → DCSync). Acá el ruleset default de Wazuh **no cubría** las técnicas, así que cada writeup incluye la regla custom escrita desde cero (Wazuh + Sigma), verificada funcionando contra el ataque real.
 
 ### 2. [`atomic-red-team/`](atomic-red-team/) — Validación de cobertura
 Cadenas de técnicas ejecutadas con Atomic Red Team sobre la máquina Windows 10 Home, usadas para confirmar qué detecta el ruleset **default** de Wazuh y para practicar la habilidad más cotidiana de un SOC analyst: triagear alertas, distinguir señal de ruido, y documentar falsos positivos con criterio. Incluye una cadena de kill chain completa (Execution → Impact) en endpoint, donde el default cubrió la mayoría pero aparecieron gaps de configuración —el canal `PowerShell/Operational` sin ingerir (sin Event 4104) y el `ProcessAccess` acotado que dejó el dump de LSASS detectado solo por línea de comando— que motivaron las primeras reglas custom de endpoint (rango 100500+).
